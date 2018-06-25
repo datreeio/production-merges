@@ -9,7 +9,7 @@ const octokit = require('@octokit/rest')({
 })
 
 program
-  .usage('Syncs a specific model')
+  .usage('Get a list of repositories that need merging to production')
   .option('-t, --token <token>', 'The github token')
   .option('-o, --org <org>', 'The org name')
   .parse(process.argv)
