@@ -1,0 +1,20 @@
+{
+  "name": "production-merges",
+  "version": "1.0.0",
+  "description": "Get a list of repositories that need merging to production",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roman Labunsky",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datreeio/production-merges.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^15.9.2",
+    "commander": "^2.15.1",
+    "moment": "^2.22.2"
+  }
+}
