@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const getProperty = require('lodash.get')
 const program = require('commander')
 const moment = require('moment')
 const octokit = require('@octokit/rest')({
@@ -20,12 +21,12 @@ async function main() {
     token: program.token
   })
 
-  const repoResponse = await octokit.repos.getForOrg({
+  const repoResponse = await _paginate(octokit, octokit.repos.getForOrg({
     org: program.org,
     per_page: 100
-  })
+  }))
 
-  const repos = repoResponse.data.filter(
+  const repos = repoResponse.filter(
     repo => moment().diff(repo.updated_at, 'months') < 3
   )
 
@@ -66,6 +67,16 @@ async function main() {
     }
   }
   return { needChange, noChange, errors }
+}
+
+async function _paginate(client, prom, resourceKey = 'data') {
+  let response = await prom
+  let resourceList = getProperty(response, resourceKey)
+  while (client.hasNextPage(response)) {
+    response = await client.getNextPage(response)
+    resourceList = resourceList.concat(getProperty(response, resourceKey))
+  }
+  return resourceList
 }
 
 if (require.main === module) {
