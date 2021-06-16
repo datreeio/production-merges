@@ -17,5 +17,8 @@
     "commander": "^2.15.1",
     "lodash.get": "^4.4.2",
     "moment": "^2.22.2"
+  },
+  "bin": {
+    "production-merges": "./index.js"
   }
 }
